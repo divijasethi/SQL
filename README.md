@@ -1,2 +1,2 @@
 # SQL
-solutions to SQL problems from HackeRank
+Practice SQL Questions for Intrviews
