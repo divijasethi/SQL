@@ -1,0 +1,8 @@
+select genre,title,round(avg_rating,0) as avg_rating, replicate('*',round(avg_rating,0)) as stars
+from(
+select m.genre, m.title, avg(r.rating) as avg_rating, row_number() over (partition by m.genre order by avg(r.rating) desc) as r
+from Movies m
+left join Reviews r
+on m.id = r.movie_id
+group by m.genre, m.title)
+where r = 1
