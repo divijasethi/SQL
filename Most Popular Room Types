@@ -1,0 +1,5 @@
+select value as room_type, count(1) as searches
+from Airbnb_searches
+CROSS APPLY string_split(filter_room_types,',')
+group by value
+order by searches desc
