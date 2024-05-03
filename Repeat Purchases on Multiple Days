@@ -1,0 +1,9 @@
+select count(1) as num
+from(
+SELECT 
+    user_id,
+    product_id,
+    count(distinct (SUBSTR(purchase_date, 1, 10))) AS purchase_date
+FROM Purchases
+group by user_id, product_id
+having count(distinct (SUBSTR(purchase_date, 1, 10))) >1)
