@@ -1,0 +1,8 @@
+select A.phone_number, A.rn, A.start_time, B.end_time
+from
+(select *, row_number() over(partition by phone_number order by start_time) as rn
+from Call_start_logs) A
+inner join
+(select *,row_number() over(partition by phone_number order by end_time) as rn
+from Call_end_logs) B 
+on A.phone_number = B.phone_number and A.rn= B.rn
