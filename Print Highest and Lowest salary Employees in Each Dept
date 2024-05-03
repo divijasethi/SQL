@@ -1,0 +1,8 @@
+with rank as(
+  select emp_name, dep_id, salary, row_number() over(partition by dep_id order by salary desc) as high_rank, row_number() over(partition by dep_id order by salary) as low_rank
+  from Employee)
+select dep_id,
+max(case when high_rank =1 then emp_name end) as max_sal,
+max(case when low_rank =1 then emp_name end) as min_sal
+from rank
+group by dep_id
