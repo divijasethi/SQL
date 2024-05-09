@@ -1,0 +1,13 @@
+--busiest route, highest no.s of total tickets
+
+select destination, origin, sum(ticket_count) as total
+from(
+  select origin, destination, oneway_round, ticket_count
+from Tickets
+union all
+select destination,origin,oneway_round, ticket_count
+from Tickets
+where oneway_round = 'R')
+group  by destination, origin
+order by total desc
+  
